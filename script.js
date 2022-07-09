@@ -18,7 +18,7 @@ makeHead = () => {
     let Table = document.getElementById("table");
     Table.innerHTML +=
     `
-    <tr>
+    <tr> 
         <td class="head NUM">
             Num
         </td>
@@ -41,18 +41,18 @@ makeFooter = () =>
     Table.innerHTML +=
     `
     <tr>
-                <td colspan="3" class = "bottom cell Left">
-                    Statistics
-                </td>
-                <td class="bottom cell">
-                    ${correct}
-                </td>
-                <td class="bottom cell">
-                    ${forbidden}
-                </td>
-                <td class="bottom cell">
-                    ${late}
-                </td>
+        <td colspan="3" class = "bottom cell Left">
+            Statistics
+        </td>
+        <td class="bottom cell">
+            ${correct}
+        </td>
+        <td class="bottom cell">
+            ${forbidden}
+        </td>
+        <td class="bottom cell">
+            ${late}
+        </td>
     </tr>
 
     `
