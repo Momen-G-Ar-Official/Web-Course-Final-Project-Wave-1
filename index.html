@@ -13,64 +13,87 @@
 
 <body>
     <!-- This row will be a function called in the start of JS -->
-    <div class="title">
 
-    </div>
     <div class="mainDiv">
-        <table border="0" class="Table" cellspacing = "0" cellpadding = "5px">
-            <thead>
-                <th>
-                    Num
-                </th>
-                <th>
-                    Student ID
-                </th>
-                <th>
-                    Student Name
-                </th>
-                <th colspan="3">
-                    Attendance
-                </th>
-
-            </thead>
+        <table border="0" class="Table" cellspacing="0" cellpadding="5px">
             <tbody>
+                <tr>
+                    <td class="title" colspan="6">
+                        Attendance for 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="head NUM">
+                        Num
+                    </td>
+                    <td class="head SID">
+                        Student ID
+                    </td>
+                    <td class="head SN">
+                        Student Name
+                    </td>
+                    <td class="head" colspan="3">
+                        Attendance
+                    </td>
+                </tr>
+
+
+
                 <!-- The next row has cells each cell will have one of the object attributes  -->
                 <!-- This row will build with JS -->
                 <tr>
-                    <td class="cell">
-                        
+                    <td class="cell Left">
+
                     </td>
                     <td class="cell">
-                        
+
                     </td>
                     <td class="cell">
-                        
+
                     </td>
                     <!-- Each cell will have specific function -->
                     <td class="cell">
                         <div class="img">
-                            <img src="images/Correct.jpg" alt="Correct IMage" class="images">
+                            <div class="button">
+                                <img src="images/Correct.jpg" alt="Correct Image" class="images Correct">
+                            </div>
                         </div>
                     </td>
                     <td class="cell">
                         <div class="img">
-                            <img src="images/Correct.jpg" alt="Correct IMage" class="images">
+                            <div class="button">
+                                <img src="images/Forbidden.jpg" alt="Forbidden Image" class="images Forbidden">
+                            </div>
                         </div>
                     </td>
                     <td class="cell">
                         <div class="img">
-                            <span class="button">
-                                <img src="images/Correct.jpg" alt="Correct IMage" class="images">
-                            </span>
+                            <div class="button">
+                                <img src="images/late.png" alt="Late IMage" class="images Late">
+                            </div>
                         </div>
                     </td>
 
-                    
+
                 </tr>
+                
+
+
             </tbody>
             <!-- This row have the statistics also build in JS -->
             <tr>
-                <td ></td>
+                <td colspan="3">
+
+                </td>
+                <td class="bottom">
+
+                </td>
+                <td class="bottom">
+
+                </td>
+                <td class="bottom">
+                    
+                </td>
             </tr>
         </table>
     </div>
