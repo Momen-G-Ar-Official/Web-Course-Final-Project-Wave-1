@@ -3,6 +3,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    text-align: center;
 }
 
 .mainDiv {
@@ -52,7 +53,7 @@ body {
 }
 
 .cell {
-
+    text-align: center;
     border-right: 1px solid #bebdbe;
     border-bottom: 1px solid #bebdbe;
     height: 40px;
@@ -108,4 +109,48 @@ body {
     width: 20px;
     height: 20px;
 }
+.bottom {
+    font-size: small;
+    font-weight: bold;
+    font-family: sans-serif;
+    height: 20px;
+    background: #f4f4f4;
+}
 
+.lastDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    padding: 10px;
+}
+.lastDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ADD{
+    display: inline-block;
+    height: 20px;
+    padding: 5px;
+    width: 100px;
+    background: #d3d1d1;
+    margin: 10px;
+}
+
+.SAVE{
+    display: inline-block;
+    height: 20px;
+    padding: 5px;
+    width: 50px;
+    background: #d3d1d1;
+    margin-right: 10px;
+}
+.CLEAR{
+    display: inline-block;
+    height: 20px;
+    padding: 5px;
+    width: 70px;
+    background: #d3d1d1;
+}
