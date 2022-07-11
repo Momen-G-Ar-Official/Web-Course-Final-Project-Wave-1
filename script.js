@@ -65,13 +65,13 @@ makeButtons = () => {
     <tr>
         <td colspan="6">
             <div class="lastDiv">
-                <div class="ADD">
+                <div class="ADD" onclick = "showAdd();">
                     Add Students
                 </div>
-                <div class="SAVE">
+                <div class="SAVE" onclick = "saveDoc();">
                     Save 
                 </div>
-                <div class="CLEAR">
+                <div class="CLEAR" onclick = "clearAll();">
                     Clear All
                 </div>
             </div>
@@ -95,7 +95,7 @@ renderItems = () => {
             <!-- This row will build with JS -->
 
             <td class="cell Left">
-                ${i + 1}
+                
             </td>
             <td class="cell">
 
