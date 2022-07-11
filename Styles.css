@@ -59,6 +59,9 @@ body {
     border-bottom: 1px solid #bebdbe;
     height: 40px;
     padding: 10px;
+    user-select: none;
+    font-weight: 200;
+    font-family: sans-serif;
 
 }
 
@@ -286,4 +289,22 @@ div .stu span{
     cursor: pointer;
     margin-bottom: 2px;
     box-shadow: 1px 1px 0px 0px #bfbfbf;
+}
+
+
+/* Styles */
+.none{
+    background-color: white;
+}
+.correct{
+    background-color: #effceb;
+}
+.forbidden{
+    background-color: #f9edee;
+}
+.late{
+    background-color: #fcf8e9;
+}
+.hidden{
+    display: none;
 }

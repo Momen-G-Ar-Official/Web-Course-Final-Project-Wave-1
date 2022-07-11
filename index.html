@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="addStudent">
+    <div class="addStudent" id = "addStudent">
         <div class="whiteDiv">
             <div class="whiteTitle"> Add New Student </div>
             <div class="inputDiv">
@@ -31,10 +31,10 @@
                 </div>
                 <div class="warning">Warning: Adding student will reset the sheet!</div>
                 <div class="whiteDivButton">
-                    <div class="save">
+                    <div class="save" onclick="ADD();">
                         Save 
                     </div>
-                    <div class="cancel">
+                    <div class="cancel" id = "cancel "  onclick="cancel()">
                         Cancel 
                     </div>
                 </div>
