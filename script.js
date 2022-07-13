@@ -86,6 +86,9 @@ makeButtons = () => {
                 <div class="DELETE-SPEC" onclick = "deleteOne();">
                     Delete One Student
                 </div>
+                <div class="IMPORT" onclick = "importDoc();">
+                    Import 
+                </div>
                 <div class="DELETE-ALL" onclick = "deleteAll();">
                     Delete All
                 </div>
@@ -371,14 +374,14 @@ saveDoc = () => {
     // csvContent += row + "\r\n";
     // });
 
-    array.forEach((element , i) => {
+    array.forEach((element, i) => {
         let row = [
             element.ID,
             element.FN,
             element.LN,
-            element.Style == ""? "none" : 
-            element.Style == "correct"? "present":
-            element.Style == "forbidden"? "absent": "late",
+            element.Style == "" ? "none" :
+                element.Style == "correct" ? "present" :
+                    element.Style == "forbidden" ? "absent" : "late",
         ]
 
         console.log(row);
@@ -392,4 +395,11 @@ saveDoc = () => {
     document.body.appendChild(link); // Required for FF
     link.click();
 }
+
+importDoc = () => {
+    console.log(1);
+}
+
+
+
 Run();
