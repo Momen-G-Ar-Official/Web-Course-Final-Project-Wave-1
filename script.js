@@ -132,7 +132,7 @@ renderItemsStart = () => {
                     ${array[i].ID}
                 </td>
                 <td class="cell">
-                    ${array[i].N}
+                    ${array[i].FN}&nbsp${array[i].LN}
                 </td>
     
                 <!-- Each cell will have specific function -->
@@ -203,10 +203,10 @@ renderItems = () => {
                     ${i + 1}
                 </td>
                 <td class="cell ${array[i].Style}">
-                    ${array[i].ID}
+                    ${array[i].ID} 
                 </td>
                 <td class="cell ${array[i].Style}">
-                    ${array[i].N}
+                    ${array[i].FN}&nbsp${array[i].LN}
                 </td>
 
                 <!-- Each cell will have specific function -->
@@ -264,7 +264,8 @@ ADD = () => {
 
         let item = {
             ID: idd.value,
-            N: lnn.value + " " + fnn.value,
+            FN: fnn.value,
+            LN: lnn.value,
             Style: Styles[0],
         };
         idd.value = "";
@@ -354,7 +355,41 @@ deleteOne = () => {
         renderItemsStart();
         saveLocalStorage();
     }
-
 }
 
+saveDoc = () => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+
+    // const rows = [
+    //     ["name1", "city1", "some other info"],
+    //     ["name2", "city2", "more info"]
+    // ];
+    // let csvContent = "data:text/csv;charset=utf-8,";
+
+    // rows.forEach(function(rowArray) {
+    // let row = rowArray.join(",");
+    // csvContent += row + "\r\n";
+    // });
+
+    array.forEach((element , i) => {
+        let row = [
+            element.ID,
+            element.FN,
+            element.LN,
+            element.Style == ""? "none" : 
+            element.Style == "correct"? "present":
+            element.Style == "forbidden"? "absent": "late",
+        ]
+
+        console.log(row);
+        csvContent += row + "\r\n";
+    });
+
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "sheet.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click();
+}
 Run();

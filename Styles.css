@@ -25,6 +25,7 @@ body {
 }
 
 .head {
+    user-select: none;
     text-align: center;
     height: 30px;
     border-top: 1px solid #bebdbe;
@@ -345,11 +346,11 @@ div .stu span {
 /* Styles after Click*/
 
 .correct {
-    background: #effceb;
+    background: #eafae5;
 }
 
 .forbidden {
-    background-color: #f9edee;
+    background-color: #f6e0e2;
 }
 
 .late {
