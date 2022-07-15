@@ -1,11 +1,12 @@
 
-let array = localStorage.array ? JSON.parse(localStorage.array) : [];
-let correct = localStorage.array ? JSON.parse(localStorage.correct) : 0;
-let forbidden = localStorage.array ? JSON.parse(localStorage.forbidden) : 0;
-let late = localStorage.array ? JSON.parse(localStorage.late) : 0;
-const Styles = ['', "correct", "forbidden", "late"];
+let array = localStorage.array ? JSON.parse(localStorage.array) : []; // Store The data
+let correct = localStorage.array ? JSON.parse(localStorage.correct) : 0; // Store # of correct
+let forbidden = localStorage.array ? JSON.parse(localStorage.forbidden) : 0;// Store # of forbidden
+let late = localStorage.array ? JSON.parse(localStorage.late) : 0;// Store # of late
+const Styles = ['', "correct", "forbidden", "late"]; // Styles (Themes) of rows
 
 
+// To create the date
 makeDate = () => {
     let Table = document.getElementById("table");
     Table.innerHTML +=
@@ -17,6 +18,8 @@ makeDate = () => {
     `
 }
 
+
+// To make the head of the table
 makeHead = () => {
     let Table = document.getElementById("table");
     Table.innerHTML +=
@@ -38,6 +41,8 @@ makeHead = () => {
     `
 }
 
+
+// To make the footer for the table (Statistics)
 makeFooter = () => {
     let Table = document.getElementById("table");
     Table.innerHTML +=
@@ -60,6 +65,8 @@ makeFooter = () => {
     `
 }
 
+
+// To make the buttons under the table
 makeButtons = () => {
     let Table = document.getElementById("table");
     Table.innerHTML +=
@@ -67,7 +74,7 @@ makeButtons = () => {
     <tr>
         <td colspan="6">
             <div class="lastDiv">
-                <div class="ADD" onclick = "showAdd();">
+                <div class="ADD" onclick = "ShowAdd(); console.log(1);">
                     Add Students
                 </div>
                 <div class="CLEAR" onclick = "clearAll();">
@@ -84,11 +91,11 @@ makeButtons = () => {
     <tr>
         <td colspan = "6">
             <div class="lastDiv">  
-                <div class="DELETE-SPEC" onclick = "deleteOne();">
-                    Delete One Student
+                <div class="DELETE-SPEC" onclick = "Delete();">
+                    Delete Students
                 </div>
-                <div class="DELETE-ALL" onclick = "deleteAll();">
-                    Delete All
+                <div class="DELETE-ALL" onclick = "edit();">
+                    Edit User
                 </div>
                 <div class="IMPORT" onclick = "importDoc();">
                     Import 
@@ -102,6 +109,8 @@ makeButtons = () => {
     `
 }
 
+
+// To render items after start or after clear
 renderItemsStart = () => {
     let Table = document.getElementById("table");
     Table.innerHTML = "";
@@ -177,6 +186,8 @@ renderItemsStart = () => {
     makeButtons();
 }
 
+
+// To render items in the usual time
 renderItems = () => {
     let Table = document.getElementById("table");
     Table.innerHTML = "";
@@ -256,13 +267,39 @@ renderItems = () => {
     makeButtons();
 }
 
-ADD = () => {
-    let idd = document.getElementById("studentID");
-    let fnn = document.getElementById("studentFN");
-    let lnn = document.getElementById("studentLN");
-    let addStudent = document.getElementById("addStudent");
+
+// To show the div for 
+ShowAdd = () => {
+    const choice = prompt("Enter the choice : \n1. Add students\n" +
+        "2. Add students with reset");
+    switch (choice) {
+        case '1':
+            showAddDiv();
+            break;
+        case '2':
+            showAddDivWithDelete();
+            break;
+        default:
+            break;
+
+    }
+}
+
+
+// Functions for add students without clear the attendance
+showAddDivWithDelete = () => {
+    console.log("showAddDivWithDelete");
+    const x = document.getElementById("addStudentClear");
+    x.style.display = "flex";
+}
+
+NEXTC = () => {
+    let idd = document.getElementById("studentIDC");
+    let fnn = document.getElementById("studentFNC");
+    let lnn = document.getElementById("studentLNC");
+    let addStudent = document.getElementById("addStudentClear");
     if (idd.value == "" || fnn.value == "" || lnn.value == "") {
-        window.alert("This Page says", "Pleas fill all the fields!");
+        window.alert("This Page says\n" + "Pleas fill all the fields!");
         addStudent.style.display = "flex";
     }
     else {
@@ -277,27 +314,141 @@ ADD = () => {
         lnn.value = "";
         fnn.value = "";
 
+        array.push(item);
+    }
+}
+
+ADD_DELETE = () => {
+    let idd = document.getElementById("studentIDC");
+    let fnn = document.getElementById("studentFNC");
+    let lnn = document.getElementById("studentLNC");
+    let addStudent = document.getElementById("addStudentClear");
+    if (idd.value == "" && fnn.value == "" && lnn.value == "") {
         array.forEach(element => {
             element.Style = "";
         });
-
-        array.push(item);
         addStudent.style.display = "";
         renderItemsStart();
         saveLocalStorage();
     }
+    else if (idd.value == "" || fnn.value == "" || lnn.value == "") {
+        window.alert("This Page says\nPlease fill all the fields or Clear Them!");
+        addStudent.style.display = "flex";
+    }
+    else {
+
+        let item = {
+            ID: idd.value,
+            FN: fnn.value,
+            LN: lnn.value,
+            Style: Styles[0],
+        };
+        idd.value = "";
+        lnn.value = "";
+        fnn.value = "";
+
+        array.push(item);
+        array.forEach(element => {
+            element.Style = "";
+        });
+        addStudent.style.display = "";
+        renderItemsStart();
+        saveLocalStorage();
+    }
+
 }
 
-showAdd = () => {
+cancelC = () => {
+    let x = document.getElementById("addStudentClear");
+    let idd = document.getElementById("studentIDC");
+    let fnn = document.getElementById("studentFNC");
+    let lnn = document.getElementById("studentLNC");
+    idd.value = "";
+    lnn.value = "";
+    fnn.value = "";
+    x.style.display = "";
+}
+
+
+// Functions for add students without clear the attendance
+showAddDiv = () => {
+    console.log("showAddDiv");
     let x = document.getElementById("addStudent");
     x.style.display = "flex";
+}
+NEXT = () => {
+    let idd = document.getElementById("studentID");
+    let fnn = document.getElementById("studentFN");
+    let lnn = document.getElementById("studentLN");
+    let addStudent = document.getElementById("addStudent");
+    if (idd.value == "" || fnn.value == "" || lnn.value == "") {
+        window.alert("This Page says\n" + "Pleas fill all the fields!");
+        addStudent.style.display = "flex";
+    }
+    else {
+
+        let item = {
+            ID: idd.value,
+            FN: fnn.value,
+            LN: lnn.value,
+            Style: Styles[0],
+        };
+        idd.value = "";
+        lnn.value = "";
+        fnn.value = "";
+
+        array.push(item);
+    }
+}
+
+ADD = () => {
+    let idd = document.getElementById("studentID");
+    let fnn = document.getElementById("studentFN");
+    let lnn = document.getElementById("studentLN");
+    let addStudent = document.getElementById("addStudent");
+    if (idd.value == "" && fnn.value == "" && lnn.value == "") {
+        addStudent.style.display = "";
+        renderItems();
+        saveLocalStorage();
+    }
+    else if (idd.value == "" || fnn.value == "" || lnn.value == "") {
+        alert("This Page says\nPlease fill all the fields or Clear Them!");
+        addStudent.style.display = "flex";
+    }
+    else {
+
+        let item = {
+            ID: idd.value,
+            FN: fnn.value,
+            LN: lnn.value,
+            Style: Styles[0],
+        };
+        idd.value = "";
+        lnn.value = "";
+        fnn.value = "";
+
+        array.push(item);
+        addStudent.style.display = "";
+        renderItems();
+        saveLocalStorage();
+    }
+
+
 }
 
 cancel = () => {
     let x = document.getElementById("addStudent");
+    let idd = document.getElementById("studentIDC");
+    let fnn = document.getElementById("studentFNC");
+    let lnn = document.getElementById("studentLNC");
+    idd.value = "";
+    lnn.value = "";
+    fnn.value = "";
     x.style.display = "";
 }
 
+
+// To clear all Statistics
 clearAll = () => {
     array.forEach(element => {
         element.Style = "";
@@ -307,6 +458,8 @@ clearAll = () => {
     saveLocalStorage();
 }
 
+
+// To mark each row with its theme (attribute)
 correctFunction = (value) => {
     if (array[value].Style == "") {
         array[value].Style = "correct";
@@ -335,6 +488,8 @@ lateFunction = (value) => {
     }
 }
 
+
+// To save data at the local storage
 saveLocalStorage = () => {
     localStorage.array = JSON.stringify(array);
     localStorage.correct = JSON.stringify(correct);
@@ -342,9 +497,28 @@ saveLocalStorage = () => {
     localStorage.late = JSON.stringify(late);
 }
 
+
+// To Start the whole Javascript
 Run = () => {
     localStorage.array ? renderItems() : renderItemsStart();
     saveLocalStorage();
+}
+
+
+// To delete students
+Delete = () => {
+    let choice = prompt("Enter the choice : \n 1. Delete one student\n 2. Delete all");
+    switch (choice) {
+        case '1':
+            deleteOne();
+            break;
+        case '2':
+            deleteAll();
+            break;
+        default:
+            break;
+
+    }
 }
 
 deleteAll = () => {
@@ -353,15 +527,25 @@ deleteAll = () => {
     renderItemsStart();
     saveLocalStorage();
 }
+
 deleteOne = () => {
     if (array.length) {
         let ind = prompt("Enter The student NUM");
-        array.splice(ind - 1, 1);
-        renderItems();
-        saveLocalStorage();
+
+        if (ind && ind < array.length) {
+            correct -= array[ind].Style == Styles[1];
+            forbidden -= array[ind].Style == Styles[2];
+            late -= array[ind].Style == Styles[3];
+
+            array.splice(ind - 1, 1);
+            renderItems();
+            saveLocalStorage();
+        }
     }
 }
 
+
+// To save the data in CSV file
 saveDoc = () => {
     let csvContent = "data:text/csv;charset=utf-8,";
 
@@ -387,10 +571,17 @@ saveDoc = () => {
     link.click();
 }
 
+
+// To import the data from CSV file
 importDoc = () => {
     console.log(1);
 }
 
+edit = () => {
+    console.log(2);
+
+}
 
 
+// Start
 Run();

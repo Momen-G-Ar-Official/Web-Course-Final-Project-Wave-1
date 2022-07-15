@@ -12,7 +12,8 @@
 
 </head>
 
-<body>
+<body id = "body">
+    <!-- Show White Div Without Clear -->
     <div class="addStudent" id="addStudent">
         <div class="whiteDiv">
             <div class="whiteTitle"> Add New Student </div>
@@ -29,19 +30,53 @@
                     <span>Last Name</span>
                     <input type="text" name="student LN" id="studentLN">
                 </div>
-                <div class="warning"> Warning: Adding student will reset the sheet! </div>
                 <div class="whiteDivButton">
                     <div class="save" onclick="ADD();">
                         Save
                     </div>
-                    <div class="cancel" id="cancel " onclick="cancel()">
+                    <div class="other" onclick="NEXT();">
+                        Other One
+                    </div>
+                    <div class="cancel" id="cancel " onclick="cancel();">
                         Cancel
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- This row will be a function called in the start of JS -->
+    <!-- Show White Div With Clear -->
+    <div class="addStudent" id="addStudentClear">
+        <div class="whiteDiv">
+            <div class="whiteTitle"> Add New Student </div>
+            <div class="inputDiv">
+                <div class="stu">
+                    <span>Student ID&nbsp;</span>
+                    <input type="number" name="student ID" id="studentIDC" min="1">
+                </div>
+                <div class="stu">
+                    <span>First Name</span>
+                    <input type="text" name="student FN" id="studentFNC">
+                </div>
+                <div class="stu">
+                    <span>Last Name</span>
+                    <input type="text" name="student LN" id="studentLNC">
+                </div>
+                <div class="warning"> Warning: Adding student will reset the sheet! </div>
+                <div class="whiteDivButton">
+                    <div class="save" onclick="ADD_DELETE();">
+                        Save
+                    </div>
+                    <div class="other" onclick="NEXTC();">
+                        Other One
+                    </div>
+                    <div class="cancel" id="cancel" onclick="cancelC()">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- This row will be a function called in the RUN of JS -->
     <div class="mainDiv">
         <table border="0" class="Table" cellspacing="0" cellpadding="0px">
             <tbody id="table">
@@ -50,8 +85,6 @@
 
 
             </tbody>
-            <!-- This row have the statistics also build in JS -->
-
         </table>
     </div>
 
