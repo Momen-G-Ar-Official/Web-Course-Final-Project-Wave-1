@@ -70,12 +70,13 @@ makeButtons = () => {
                 <div class="ADD" onclick = "showAdd();">
                     Add Students
                 </div>
-                <div class="SAVE" onclick = "saveDoc();">
-                    Save 
-                </div>
                 <div class="CLEAR" onclick = "clearAll();">
                     Clear All
                 </div>
+                <div class="SAVE" onclick = "saveDoc();">
+                    Save 
+                </div>
+                
                 
             </div>
         </td>
@@ -86,12 +87,13 @@ makeButtons = () => {
                 <div class="DELETE-SPEC" onclick = "deleteOne();">
                     Delete One Student
                 </div>
-                <div class="IMPORT" onclick = "importDoc();">
-                    Import 
-                </div>
                 <div class="DELETE-ALL" onclick = "deleteAll();">
                     Delete All
                 </div>
+                <div class="IMPORT" onclick = "importDoc();">
+                    Import 
+                </div>
+                
             </div>
 
         </td>
@@ -157,7 +159,7 @@ renderItemsStart = () => {
                 <td class="cell">
                     <div class="img">
                         <div class="button" onclick = "lateFunction(${i})">
-                            <img src="images/late.png" alt="Late IMage" class="images Late">
+                            &#128337;
                         </div>
                     </div>
                 </td>
@@ -237,7 +239,7 @@ renderItems = () => {
                         <div
                         class="${array[i].Style == "" ? "button" : array[i].Style == "late" ? "AFTER" : "hidden"}"
                         onclick = lateFunction(${i})>
-                            <img src="images/late.png" alt="Late IMage" class="images Late ${array[i].Style == 'late' ? "showImages" : ""}">
+                            &#128337;
                         </div>
                     </div>
                 </td>
@@ -355,24 +357,13 @@ deleteOne = () => {
     if (array.length) {
         let ind = prompt("Enter The student NUM");
         array.splice(ind - 1, 1);
-        renderItemsStart();
+        renderItems();
         saveLocalStorage();
     }
 }
 
 saveDoc = () => {
     let csvContent = "data:text/csv;charset=utf-8,";
-
-    // const rows = [
-    //     ["name1", "city1", "some other info"],
-    //     ["name2", "city2", "more info"]
-    // ];
-    // let csvContent = "data:text/csv;charset=utf-8,";
-
-    // rows.forEach(function(rowArray) {
-    // let row = rowArray.join(",");
-    // csvContent += row + "\r\n";
-    // });
 
     array.forEach((element, i) => {
         let row = [
