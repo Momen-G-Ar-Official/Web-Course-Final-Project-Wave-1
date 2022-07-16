@@ -1,9 +1,8 @@
-
 let array = localStorage.array ? JSON.parse(localStorage.array) : []; // Store The data
 let Present = localStorage.array ? JSON.parse(localStorage.Present) : 0; // Store # of Present
 let Absent = localStorage.array ? JSON.parse(localStorage.Absent) : 0;// Store # of Absent
 let late = localStorage.array ? JSON.parse(localStorage.late) : 0;// Store # of late
-const Styles = ['', "Present", "Absent", "late"]; // Styles (Themes) of rows
+const Styles = ['', "present", "absent", "late"]; // Styles (Themes) of rows
 
 
 // To create the date
@@ -74,7 +73,7 @@ makeButtons = () => {
     <tr>
         <td colspan="6">
             <div class="lastDiv">
-                <div class="ADD" onclick = "ShowAdd(); console.log(1);">
+                <div class="ADD" onclick = "ShowAdd();">
                     Add Students
                 </div>
                 <div class="CLEAR" onclick = "clearAll();">
@@ -90,17 +89,16 @@ makeButtons = () => {
     </tr>
     <tr>
         <td colspan = "6">
-            <div class="lastDiv">  
+            <div class="lastDiv" id = "lastDiv">  
                 <div class="DELETE-SPEC" onclick = "Delete();">
                     Delete Students
                 </div>
                 <div class="DELETE-ALL" onclick = "showEdit();">
                     Edit User
                 </div>
-                <div class="IMPORT" onclick = "importDoc();">
+                <div class="IMPORT" onclick = "importDoc();" id = "import">
                     Import 
                 </div>
-                
             </div>
 
         </td>
@@ -229,7 +227,7 @@ renderItems = () => {
                 <td class="cell ${array[i].Style}">
                     <div class="${array[i].Style == "" ? "img" : "hiddenImg"}">
                         <div 
-                        class="${array[i].Style == "" ? "button" : array[i].Style == "Present" ? "AFTER" : "hidden"}"
+                        class="${array[i].Style == "" ? "button" : array[i].Style == "present" ? "AFTER" : "hidden"}"
                         onclick = "PresentFunction(${i})">
                             &#9989
                         </div>
@@ -239,7 +237,7 @@ renderItems = () => {
                 <td class="cell ${array[i].Style}">
                     <div class="${array[i].Style == "" ? "img" : "hiddenImg"}">
                         <div 
-                        class="${array[i].Style == "" ? "button" : array[i].Style == "Absent" ? "AFTER" : "hidden"}"
+                        class="${array[i].Style == "" ? "button" : array[i].Style == "absent" ? "AFTER" : "hidden"}"
                         onclick = "AbsentFunction(${i})">
                             &#128683;
                         </div>
@@ -287,9 +285,12 @@ ShowAdd = () => {
 
 
 // Functions for add students without clear the attendance
+let arrc = [];
 showAddDivWithDelete = () => {
-    console.log("showAddDivWithDelete");
+
     const x = document.getElementById("addStudentClear");
+    const bd = document.getElementById("body").offsetHeight;
+    x.style.height = bd + 20 + "px";
     x.style.display = "flex";
 }
 
@@ -314,7 +315,7 @@ NEXTC = () => {
         lnn.value = "";
         fnn.value = "";
 
-        array.push(item);
+        arrc.push(item);
     }
 }
 
@@ -324,10 +325,14 @@ ADD_DELETE = () => {
     let lnn = document.getElementById("studentLNC");
     let addStudent = document.getElementById("addStudentClear");
     if (idd.value == "" && fnn.value == "" && lnn.value == "") {
+        arrc.forEach(element => {
+            array.push(element);
+        });
         array.forEach(element => {
             element.Style = "";
         });
         addStudent.style.display = "";
+        arrc = [];
         renderItemsStart();
         saveLocalStorage();
     }
@@ -347,13 +352,18 @@ ADD_DELETE = () => {
         lnn.value = "";
         fnn.value = "";
 
-        array.push(item);
+        arrc.push(item);
+
+        arrc.forEach(element => {
+            array.push(element);
+        });
         array.forEach(element => {
             element.Style = "";
         });
         addStudent.style.display = "";
         renderItemsStart();
         saveLocalStorage();
+        arrc = [];
     }
 
 }
@@ -366,14 +376,17 @@ cancelC = () => {
     idd.value = "";
     lnn.value = "";
     fnn.value = "";
+    arrc = [];
     x.style.display = "";
 }
 
 
 // Functions for add students without clear the attendance
+let arr = [];
 showAddDiv = () => {
-    console.log("showAddDiv");
+    const bd = document.getElementById("body").offsetHeight;
     let x = document.getElementById("addStudent");
+    x.style.height = bd + 20 + "px";
     x.style.display = "flex";
 }
 NEXT = () => {
@@ -397,7 +410,7 @@ NEXT = () => {
         lnn.value = "";
         fnn.value = "";
 
-        array.push(item);
+        arr.push(item);
     }
 }
 
@@ -408,8 +421,12 @@ ADD = () => {
     let addStudent = document.getElementById("addStudent");
     if (idd.value == "" && fnn.value == "" && lnn.value == "") {
         addStudent.style.display = "";
+        arr.forEach(element => {
+            array.push(element);
+        });
         renderItems();
         saveLocalStorage();
+        arr = [];
     }
     else if (idd.value == "" || fnn.value == "" || lnn.value == "") {
         alert("This Page says\nPlease fill all the fields or Clear Them!");
@@ -427,23 +444,27 @@ ADD = () => {
         lnn.value = "";
         fnn.value = "";
 
-        array.push(item);
+        arr.push(item);
+        arr.forEach(element => {
+            array.push(element);
+        });
+
         addStudent.style.display = "";
         renderItems();
         saveLocalStorage();
+        arr = [];
     }
-
-
 }
 
 cancel = () => {
     let x = document.getElementById("addStudent");
-    let idd = document.getElementById("studentIDC");
-    let fnn = document.getElementById("studentFNC");
-    let lnn = document.getElementById("studentLNC");
+    let idd = document.getElementById("studentID");
+    let fnn = document.getElementById("studentFN");
+    let lnn = document.getElementById("studentLN");
     idd.value = "";
     lnn.value = "";
     fnn.value = "";
+    arr = [];
     x.style.display = "";
 }
 
@@ -462,7 +483,7 @@ clearAll = () => {
 // To mark each row with its theme (attribute)
 PresentFunction = (value) => {
     if (array[value].Style == "") {
-        array[value].Style = "Present";
+        array[value].Style = "present";
         Present++;
         renderItems();
         saveLocalStorage();
@@ -472,7 +493,7 @@ PresentFunction = (value) => {
 
 AbsentFunction = (value) => {
     if (array[value].Style == "") {
-        array[value].Style = "Absent";
+        array[value].Style = "absent";
         Absent++;
         renderItems();
         saveLocalStorage();
@@ -555,11 +576,10 @@ saveDoc = () => {
             element.FN,
             element.LN,
             element.Style == "" ? "none" :
-                element.Style == "Present" ? "present" :
-                    element.Style == "Absent" ? "absent" : "late",
+                element.Style == "present" ? "present" :
+                    element.Style == "absent" ? "absent" : "late",
         ]
 
-        console.log(row);
         csvContent += row + "\r\n";
     });
 
@@ -572,29 +592,68 @@ saveDoc = () => {
 }
 
 
-// To import the data from CSV file
+// To import the data from CSV file to javascript     
+let file = document.createElement("input");
+file.setAttribute("type", "file");
+file.setAttribute("id", "fileInput");
+file.setAttribute("accept", ".csv");
+file.setAttribute("onchange", "showDoc()");
+
 importDoc = () => {
-    console.log(1);
+    file.click();
+}
+
+showDoc = () => {
+    let btn = Papa.parse(file.files[0], {
+        download: true,
+        header: false,
+        complete: function (results) {
+            for (let i = 0; i < results.data.length - 1; i++) {
+                let item = {
+                    ID: results.data[i][0],
+                    FN: results.data[i][1],
+                    LN: results.data[i][2],
+                    Style: results.data[i][3],
+                }
+                Present += item.Style == Styles[1];
+                Absent += item.Style == Styles[2];
+                late += item.Style == Styles[3];
+                if (item.Style == "none") {
+                    item.Style = "";
+                }
+                array.push(item);
+            }
+
+            renderItems();
+            saveLocalStorage();
+        }
+    });
+    file.value = "";
 }
 
 
 // To edit student information
 let ind;
 showEdit = () => {
-    ind = prompt("Enter the student number : ");
-    if(ind > 0 && ind <= array.length)
-    {
+    if (array.length) {
+        ind = prompt("Enter the student number : ");
+        if (ind > 0 && ind <= array.length) {
+            const bd = document.getElementById("body").offsetHeight;
+            let display = document.getElementById("Edit");
+            display.style.height = bd + 20 + "px";
+            display.style.display = "flex";
 
-        let display = document.getElementById("Edit");
-        display.style.display = "flex";
-        
-        let idd = document.getElementById("studentid");
-        let fnn = document.getElementById("studentfn");
-        let lnn = document.getElementById("studentln");
-        
-        idd.value = array[ind - 1].ID;
-        fnn.value = array[ind - 1].FN;
-        lnn.value = array[ind - 1].LN;
+            let idd = document.getElementById("studentid");
+            let fnn = document.getElementById("studentfn");
+            let lnn = document.getElementById("studentln");
+
+            idd.value = array[ind - 1].ID;
+            fnn.value = array[ind - 1].FN;
+            lnn.value = array[ind - 1].LN;
+        }
+    }
+    else {
+        alert("There is no students!")
     }
 }
 
@@ -602,7 +661,7 @@ edit = () => {
     let idd = document.getElementById("studentid");
     let fnn = document.getElementById("studentfn");
     let lnn = document.getElementById("studentln");
-    
+
     Present -= (array[ind - 1].Style == Styles[1]);
     Absent -= (array[ind - 1].Style == Styles[2]);
     late -= (array[ind - 1].Style == Styles[3]);
