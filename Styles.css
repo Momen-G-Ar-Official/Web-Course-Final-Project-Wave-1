@@ -105,23 +105,6 @@ body {
     box-shadow: grey 1px 1px 2px 0px;
 }
 
-
-
-.Correct {
-    width: 19px;
-    height: 19px;
-}
-
-.Forbidden {
-    width: 25px;
-    height: 25px;
-}
-
-.Late {
-    width: 20px;
-    height: 20px;
-}
-
 .bottom {
     font-size: small;
     font-weight: bold;
@@ -251,6 +234,20 @@ body {
 
 }
 
+.whiteDivE {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 50px;
+    justify-content: flex-start;
+    background: white;
+    width: 350px;
+    height: 250px;
+    border-radius: 7px;
+    position: relative;
+
+}
+
 .whiteTitle {
     font-size: 20px;
     height: 40px;
@@ -265,6 +262,16 @@ body {
     font-size: 10px;
     height: 50px;
     width: 300px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.inputDivE {
+    font-size: 10px;
+    height: 50px;
+    width: 400px;
     margin-bottom: 15px;
     text-align: left;
     font-weight: bold;
@@ -289,6 +296,8 @@ div .stu span {
     margin-bottom: 15px;
 }
 
+
+
 .whiteDivButton {
     height: 39px;
     display: flex;
@@ -309,6 +318,7 @@ div .stu span {
     font-weight: 200;
     font-family: sans-serif;
 }
+
 .other {
     display: inline-block;
     text-align: center;
@@ -363,12 +373,12 @@ div .stu span {
 
 /* Styles after Click*/
 
-.correct {
+.Present {
     background: #ecfde7;
 }
 
-.forbidden {
-    background-color: #f9e4e7;
+.Absent {
+    background-color: #f8e7e9;
 }
 
 .late {

@@ -1,9 +1,9 @@
 
 let array = localStorage.array ? JSON.parse(localStorage.array) : []; // Store The data
-let correct = localStorage.array ? JSON.parse(localStorage.correct) : 0; // Store # of correct
-let forbidden = localStorage.array ? JSON.parse(localStorage.forbidden) : 0;// Store # of forbidden
+let Present = localStorage.array ? JSON.parse(localStorage.Present) : 0; // Store # of Present
+let Absent = localStorage.array ? JSON.parse(localStorage.Absent) : 0;// Store # of Absent
 let late = localStorage.array ? JSON.parse(localStorage.late) : 0;// Store # of late
-const Styles = ['', "correct", "forbidden", "late"]; // Styles (Themes) of rows
+const Styles = ['', "Present", "Absent", "late"]; // Styles (Themes) of rows
 
 
 // To create the date
@@ -52,10 +52,10 @@ makeFooter = () => {
             Statistics
         </td>
         <td class="bottom cell">
-            ${correct}
+            ${Present}
         </td>
         <td class="bottom cell">
-            ${forbidden}
+            ${Absent}
         </td>
         <td class="bottom cell">
             ${late}
@@ -94,7 +94,7 @@ makeButtons = () => {
                 <div class="DELETE-SPEC" onclick = "Delete();">
                     Delete Students
                 </div>
-                <div class="DELETE-ALL" onclick = "edit();">
+                <div class="DELETE-ALL" onclick = "showEdit();">
                     Edit User
                 </div>
                 <div class="IMPORT" onclick = "importDoc();">
@@ -114,7 +114,7 @@ makeButtons = () => {
 renderItemsStart = () => {
     let Table = document.getElementById("table");
     Table.innerHTML = "";
-    correct = 0, forbidden = 0, late = 0;
+    Present = 0, Absent = 0, late = 0;
     makeDate();
     makeHead();
 
@@ -152,7 +152,7 @@ renderItemsStart = () => {
                 <!-- Each cell will have specific function -->
                 <td class="cell">
                     <div class="img">
-                        <div class="button" onclick = "correctFunction(${i})">
+                        <div class="button" onclick = "PresentFunction(${i})">
                             &#9989
                         </div>
                     </div>
@@ -160,7 +160,7 @@ renderItemsStart = () => {
     
                 <td class="cell">
                     <div class="img">
-                        <div class="button" onclick = "forbiddenFunction(${i})">
+                        <div class="button" onclick = "AbsentFunction(${i})">
                             &#128683;
                         </div>
                     </div>
@@ -229,8 +229,8 @@ renderItems = () => {
                 <td class="cell ${array[i].Style}">
                     <div class="${array[i].Style == "" ? "img" : "hiddenImg"}">
                         <div 
-                        class="${array[i].Style == "" ? "button" : array[i].Style == "correct" ? "AFTER" : "hidden"}"
-                        onclick = "correctFunction(${i})">
+                        class="${array[i].Style == "" ? "button" : array[i].Style == "Present" ? "AFTER" : "hidden"}"
+                        onclick = "PresentFunction(${i})">
                             &#9989
                         </div>
                     </div>
@@ -239,8 +239,8 @@ renderItems = () => {
                 <td class="cell ${array[i].Style}">
                     <div class="${array[i].Style == "" ? "img" : "hiddenImg"}">
                         <div 
-                        class="${array[i].Style == "" ? "button" : array[i].Style == "forbidden" ? "AFTER" : "hidden"}"
-                        onclick = "forbiddenFunction(${i})">
+                        class="${array[i].Style == "" ? "button" : array[i].Style == "Absent" ? "AFTER" : "hidden"}"
+                        onclick = "AbsentFunction(${i})">
                             &#128683;
                         </div>
                     </div>
@@ -460,20 +460,20 @@ clearAll = () => {
 
 
 // To mark each row with its theme (attribute)
-correctFunction = (value) => {
+PresentFunction = (value) => {
     if (array[value].Style == "") {
-        array[value].Style = "correct";
-        correct++;
+        array[value].Style = "Present";
+        Present++;
         renderItems();
         saveLocalStorage();
     }
 
 }
 
-forbiddenFunction = (value) => {
+AbsentFunction = (value) => {
     if (array[value].Style == "") {
-        array[value].Style = "forbidden";
-        forbidden++;
+        array[value].Style = "Absent";
+        Absent++;
         renderItems();
         saveLocalStorage();
     }
@@ -492,8 +492,8 @@ lateFunction = (value) => {
 // To save data at the local storage
 saveLocalStorage = () => {
     localStorage.array = JSON.stringify(array);
-    localStorage.correct = JSON.stringify(correct);
-    localStorage.forbidden = JSON.stringify(forbidden);
+    localStorage.Present = JSON.stringify(Present);
+    localStorage.Absent = JSON.stringify(Absent);
     localStorage.late = JSON.stringify(late);
 }
 
@@ -523,19 +523,19 @@ Delete = () => {
 
 deleteAll = () => {
     array.splice(0, array.length);
-    correct = 0, forbidden = 0, late = 0;
+    Present = 0, Absent = 0, late = 0;
     renderItemsStart();
     saveLocalStorage();
 }
 
 deleteOne = () => {
     if (array.length) {
-        let ind = prompt("Enter The student NUM");
+        let ind = prompt("Enter The student NUM : ");
 
-        if (ind && ind < array.length) {
-            correct -= array[ind].Style == Styles[1];
-            forbidden -= array[ind].Style == Styles[2];
-            late -= array[ind].Style == Styles[3];
+        if (ind > 0 && ind <= array.length) {
+            Present -= (array[ind - 1].Style == Styles[1]);
+            Absent -= (array[ind - 1].Style == Styles[2]);
+            late -= (array[ind - 1].Style == Styles[3]);
 
             array.splice(ind - 1, 1);
             renderItems();
@@ -555,8 +555,8 @@ saveDoc = () => {
             element.FN,
             element.LN,
             element.Style == "" ? "none" :
-                element.Style == "correct" ? "present" :
-                    element.Style == "forbidden" ? "absent" : "late",
+                element.Style == "Present" ? "present" :
+                    element.Style == "Absent" ? "absent" : "late",
         ]
 
         console.log(row);
@@ -567,7 +567,7 @@ saveDoc = () => {
     let link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", "sheet.csv");
-    document.body.appendChild(link); // Required for FF
+    document.body.appendChild(link);
     link.click();
 }
 
@@ -577,9 +577,57 @@ importDoc = () => {
     console.log(1);
 }
 
-edit = () => {
-    console.log(2);
 
+// To edit student information
+let ind;
+showEdit = () => {
+    ind = prompt("Enter the student number : ");
+    if(ind > 0 && ind <= array.length)
+    {
+
+        let display = document.getElementById("Edit");
+        display.style.display = "flex";
+        
+        let idd = document.getElementById("studentid");
+        let fnn = document.getElementById("studentfn");
+        let lnn = document.getElementById("studentln");
+        
+        idd.value = array[ind - 1].ID;
+        fnn.value = array[ind - 1].FN;
+        lnn.value = array[ind - 1].LN;
+    }
+}
+
+edit = () => {
+    let idd = document.getElementById("studentid");
+    let fnn = document.getElementById("studentfn");
+    let lnn = document.getElementById("studentln");
+    
+    Present -= (array[ind - 1].Style == Styles[1]);
+    Absent -= (array[ind - 1].Style == Styles[2]);
+    late -= (array[ind - 1].Style == Styles[3]);
+
+    array[ind - 1].ID = JSON.parse(idd.value);
+    array[ind - 1].FN = fnn.value;
+    array[ind - 1].LN = lnn.value;
+    array[ind - 1].Style = "";
+    ind = 0;
+    renderItems();
+    saveLocalStorage();
+    let display = document.getElementById("Edit");
+    display.style.display = "none";
+
+}
+
+canceE = () => {
+    let x = document.getElementById("Edit");
+    let idd = document.getElementById("studentid");
+    let fnn = document.getElementById("studentfn");
+    let lnn = document.getElementById("studentln");
+    idd.value = "";
+    lnn.value = "";
+    fnn.value = "";
+    x.style.display = "";
 }
 
 
