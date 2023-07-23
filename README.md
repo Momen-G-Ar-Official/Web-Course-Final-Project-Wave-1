@@ -3,4 +3,4 @@ The final project of web course with **Sada**Company
 
 To open the program: 
  - cline the repo on your computer
- - use the link: [Link](http://127.0.0.1:5500/index.html)
+ - you must open it with **live server** (vc code extension)
