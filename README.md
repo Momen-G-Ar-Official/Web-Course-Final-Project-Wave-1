@@ -1,4 +1,4 @@
-# Web-Course-Final-Project-Wave-1
+# Attendance tracker
 The final project of web course with **Sada**Company 
 
 To open the program: 
